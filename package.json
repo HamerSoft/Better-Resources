@@ -1,0 +1,22 @@
+{
+  "name": "com.hamersoft.betterresources",
+  "version": "0.0.1",
+  "displayName": "Better Resources",
+  "description": "A better API to interact with Unity3D resources.",
+  "unity": "2021.2",
+  "documentationUrl": "https://example.com/",
+  "changelogUrl": "https://example.com/changelog.html",
+  "licensesUrl": "License.md",
+  "keywords": [
+    "Unity3D",
+    "Resources",
+    "Filesystem",
+    "HamerSoft"
+  ],
+  "author": {
+    "name": "HamerSoft",
+    "email": "r.hamers@hamersoft.com",
+    "url": "https://hamersoft.com"
+  },
+  "type": "library"
+}
