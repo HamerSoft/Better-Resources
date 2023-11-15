@@ -1,0 +1,68 @@
+name: GameCI Template
+
+on: push
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+  testRunner:
+    name: Test in ${{ matrix.testMode }} ✨
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        testMode:
+          - EditMode
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Restore Library cache
+        uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-test-project-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-test-project-
+            Library-
+            
+      - name: Restructure directory
+        run: bash ${GITHUB_WORKSPACE}/restructure-dir.sh
+
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v3
+        id: testRunner
+        with:
+          packageMode: true
+          unityVersion: 2021.2
+          testMode: ${{ matrix.testMode }}
+          checkName: ${{ matrix.testMode }} test results
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Test results (${{ matrix.testMode }})
+          path: ${{ steps.testRunner.outputs.artifactsPath }}
+      
+      - name: Revert Directory
+        run: bash ${GITHUB_WORKSPACE}/revert-dir.sh
+
+#  deployPages:
+#    needs: buildWebGL
+#    name: Deploy to Github Pages 🚀
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - uses: actions/download-artifact@v2
+#        with:
+#          name: build-WebGL
+#          path: build
+#
+#      - name: Deploy 🚀
+#        uses: JamesIves/github-pages-deploy-action@4.1.4
+#        with:
+#          branch: gh-pages
+#          folder: build/WebGL
