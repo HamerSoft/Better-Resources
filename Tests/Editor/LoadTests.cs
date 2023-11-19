@@ -10,13 +10,13 @@ using Unity.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace HamerSoft.BetterResources.Tests
 {
     public class LoadTests : ResourceTests
     {
+
         [UnityTest]
         public IEnumerator Load_OfTypeT_Returns_Object_If_Found()
         {
@@ -85,7 +85,7 @@ namespace HamerSoft.BetterResources.Tests
             yield return new WaitUntil(
                 () => File.Exists(rootedPath));
 
-            Assert.That(BetterResources.Load<Image>("myTextAsset"),
+            Assert.That(BetterResources.Load<Material>("myTextAsset"),
                 Is.Null);
         }
 
@@ -97,7 +97,7 @@ namespace HamerSoft.BetterResources.Tests
             yield return new WaitUntil(
                 () => File.Exists(rootedPath));
 
-            Assert.That(BetterResources.Load<Image>($"FaultyPath{Path.DirectorySeparatorChar}myTextAsset"),
+            Assert.That(BetterResources.Load<Material>($"FaultyPath{Path.DirectorySeparatorChar}myTextAsset"),
                 Is.Null);
         }
 
@@ -142,7 +142,7 @@ namespace HamerSoft.BetterResources.Tests
             string rootedPath = GetRootedPath(path);
             await WaitUntil(() => File.Exists(rootedPath));
 
-            var result = await BetterResources.LoadAsync<Image>("myTextAsset");
+            var result = await BetterResources.LoadAsync<Material>("myTextAsset");
             Assert.That(result, Is.Null);
         }
 
@@ -153,7 +153,7 @@ namespace HamerSoft.BetterResources.Tests
             string rootedPath = GetRootedPath(path);
             await WaitUntil(() => File.Exists(rootedPath));
 
-            var result = await BetterResources.LoadAsync<Image>($"FaultyPath{Path.DirectorySeparatorChar}myTextAsset");
+            var result = await BetterResources.LoadAsync<Material>($"FaultyPath{Path.DirectorySeparatorChar}myTextAsset");
             Assert.That(result, Is.Null);
         }
 

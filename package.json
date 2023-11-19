@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "displayName": "Better Resources",
   "description": "A better API to interact with Unity3D resources.",
-  "unity": "2021.2",
+  "unity": "2021.3",
   "documentationUrl": "https://example.com/",
   "changelogUrl": "https://example.com/changelog.html",
   "licensesUrl": "License.md",
@@ -18,5 +18,8 @@
     "email": "r.hamers@hamersoft.com",
     "url": "https://hamersoft.com"
   },
-  "type": "library"
+  "type": "library",
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": ""
+  }
 }

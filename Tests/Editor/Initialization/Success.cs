@@ -7,12 +7,15 @@ using HamerSoft.BetterResources.Extensions;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.UI;
 
 namespace HamerSoft.BetterResources.Tests.Initialization
 {
     public class Success : InitializationTest
     {
+        private class TestMono : MonoBehaviour
+        {
+        }
+
         [UnitySetUp]
         public override IEnumerator SetUp()
         {
@@ -111,7 +114,7 @@ namespace HamerSoft.BetterResources.Tests.Initialization
         [UnityTest]
         public IEnumerator InitializeRoutine_Stops_Loading_ManifestFrom_Resources_WhenStopped()
         {
-            var go = new GameObject().AddComponent<Image>();
+            var go = new GameObject().AddComponent<TestMono>();
             var tokenSource = new CancellationTokenSource();
             tokenSource.Cancel();
             var routine = go.StartCoroutine(BetterResources.InitializeRoutine(null, tokenSource.Token));

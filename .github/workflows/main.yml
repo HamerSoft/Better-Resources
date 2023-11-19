@@ -1,4 +1,4 @@
-name: GameCI Template
+name: Test and Deploy GH-Pages
 
 on: push
 
@@ -18,24 +18,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Restore Library cache
-        uses: actions/cache@v2
-        with:
-          path: Library
-          key: Library-test-project-${{ matrix.targetPlatform }}
-          restore-keys: |
-            Library-test-project-
-            Library-
-            
       - name: Restructure directory
-        run: bash ${GITHUB_WORKSPACE}/restructure-dir.sh
+        run: bash ${GITHUB_WORKSPACE}/.github/scripts/restructure-dir.sh
 
       - name: Run tests
-        uses: game-ci/unity-test-runner@v3
+        uses: game-ci/unity-test-runner@v4
         id: testRunner
         with:
-          packageMode: true
-          unityVersion: 2021.2
+          unityVersion: 2021.3.9f1
           testMode: ${{ matrix.testMode }}
           checkName: ${{ matrix.testMode }} test results
           githubToken: ${{ secrets.GITHUB_TOKEN }}
@@ -44,25 +34,69 @@ jobs:
         with:
           name: Test results (${{ matrix.testMode }})
           path: ${{ steps.testRunner.outputs.artifactsPath }}
-      
-      - name: Revert Directory
-        run: bash ${GITHUB_WORKSPACE}/revert-dir.sh
 
-#  deployPages:
-#    needs: buildWebGL
-#    name: Deploy to Github Pages 🚀
+      - name: Revert Directory
+        run: bash ${GITHUB_WORKSPACE}/.github/scripts/revert-dir.sh
+  
+#  testRunner:
+#    name: Test in ${{ matrix.testMode }} ✨
 #    runs-on: ubuntu-latest
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        testMode:
+#          - EditMode
 #    steps:
 #      - name: Checkout code
 #        uses: actions/checkout@v2
 #
-#      - uses: actions/download-artifact@v2
+#      - name: Restore Library cache
+#        uses: actions/cache@v2
 #        with:
-#          name: build-WebGL
-#          path: build
+#          path: Library
+#          key: Library-test-project-${{ matrix.targetPlatform }}
+#          restore-keys: |
+#            Library-test-project-
+#            Library-
+#            
+#      - name: Restructure directory
+#        run: bash ${GITHUB_WORKSPACE}/.github/workflows/restructure-dir.sh
 #
-#      - name: Deploy 🚀
-#        uses: JamesIves/github-pages-deploy-action@4.1.4
+#      - name: Run tests
+#        uses: game-ci/unity-test-runner@v4
+#        id: testRunner
 #        with:
-#          branch: gh-pages
-#          folder: build/WebGL
+#          packageMode: true
+#          unityVersion: 2021.3.9f1
+#          testMode: ${{ matrix.testMode }}
+#          checkName: ${{ matrix.testMode }} test results
+#          githubToken: ${{ secrets.GITHUB_TOKEN }}
+#          projectPath: ./Root
+#
+#      - uses: actions/upload-artifact@v2
+#        with:
+#          name: Test results (${{ matrix.testMode }})
+#          path: ${{ steps.testRunner.outputs.artifactsPath }}
+#      
+#      - name: Revert Directory
+#        run: bash ${GITHUB_WORKSPACE}/.github/workflows/revert-dir.sh
+
+  deployPages:
+    needs: testRunner
+    name: Deploy to Github Pages 🚀
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install DoxyGen
+        run: bash ${GITHUB_WORKSPACE}/.github/scripts/install-doxygen.sh
+        
+      - name: Generate Docs
+        run: bash ${GITHUB_WORKSPACE}/.github/scripts/generate-docs.sh
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: Docs/html

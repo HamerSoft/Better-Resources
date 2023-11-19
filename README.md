@@ -8,7 +8,7 @@ capability to query all resource paths in your project and imported packages, bo
 
 Better Resources exposes the complete UnityEngine [Resources](https://docs.unity3d.com/ScriptReference/Resources.html)
 API, which can be used straight out of the box.
-However, in order to query all resources in a project (including packages) a ResourcesCache and is needed.
+However, in order to query all resources in a project (including packages) a ResourcesCache is needed.
 
 A ResourcesCache can be generated through the different overloads
 of [BetterResourcesEditor](Editor/BetterResourcesEditor.cs).
@@ -40,7 +40,7 @@ _Note: BetterResources exposes a (static) `Initialized` event with a boolean fla
 
 The core piece of functionality BetterResources exposes over the
 default [Resources](https://docs.unity3d.com/ScriptReference/Resources.html) API Unity3D provides is: **Being able to
-query available resources at design-and-run-time**
+query available resources at design-and-run-time**.
 BetterResources exposes a nice [QueryBuilder](Runtime/QueryBuilder.cs) object to create fine-grained lookups for resources.
 
 For example: _Let's say we want to find all resources in your custom made package in some root `Resources` folder with
@@ -49,12 +49,13 @@ an [AudioListener](https://docs.unity3d.com/ScriptReference/AudioListener.html) 
 doesn't work well here :D)._
 
 ```csharp
- using var query = BetterResources.Query()
-           .ByPackage("com.my-org.package")
-           .AtRoot()
-           .WithSomeComponents(typeof(Camera))
-           .WithoutAllComponents(typeof(AudioListener));
-           var results = query.GetResults();
+using var query = BetterResources.Query()
+          .ByPackage("com.my-org.package")
+          .AtRoot()
+          .WithSomeComponents(typeof(Camera))
+          .WithoutAllComponents(typeof(AudioListener));
+          
+var results = query.GetResults();
 // do something with results
 ```
 _*The QueryBuilder supports a lot more filters so be sure to check them out, and if you have a suggestion for a useful filter that is missing please create a ticket, or better yet, create a pull-request._
@@ -66,7 +67,7 @@ optimization._
 
 ### Root & Nested Resources folders
 
-In contrary to common believe Unity3D does support nested resources folders.
+In contrary to common believe, Unity3D does support nested resources folders.
 So, for example:
 A path like: `<Project>/Assets/Resources/RandomFolder/Resources/MyAsset.asset` is supported by Unity3D.
 Another fun fact is that `MyAsset.asset` can be loaded through the built-in Resources Api using these two paths:
@@ -118,6 +119,10 @@ like so:
 
 ![PreBuildDefine](Docs~/PreBuildDefine.png)
 
+#### Custom Define through Unity3D API
+A custom define can also be set through the Unity3D [PlayerDefineSymbols](https://docs.unity3d.com/ScriptReference/PlayerSettings.SetScriptingDefineSymbols.html) API.
+Just remember to do it for all platforms needed, just like the other alternatives.
+
 #### Custom implementation
 
 A totally custom implementation is always possible. Inspiration can be taken
@@ -128,6 +133,6 @@ _Just remember that most, if not all, of the pre-and-post build handlers in Unit
 
 # Acknowledgements
 Better Resources is a tribute to another amazing library
-called [BetterStreamingAssets](https://github.com/gwiazdorrr/BetterStreamingAssets) :)
+called [BetterStreamingAssets](https://github.com/gwiazdorrr/BetterStreamingAssets), hence the name :)
 
 `"Better Streaming Assets is a plugin that lets you access Streaming Assets directly in an uniform and thread-safe way, with tiny overhead. Mostly beneficial for Android projects, where the alternatives are to use archaic and hugely inefficient WWW or embed data in Asset Bundles. API is based on Syste.IO.File and System.IO.Directory classes."`

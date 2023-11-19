@@ -137,16 +137,17 @@ namespace HamerSoft.BetterResources.Tests
                     Array.Empty<string>(),
                     DateTime.UtcNow);
 
-            Assert.That(cache.Resources.First().FullPath,
+            var foo = cache.Resources.FirstOrDefault(r => r.Name == "foo");
+            var bar = cache.Resources.FirstOrDefault(r => r.Name == "bar");
+
+            Assert.That(foo.FullPath,
                 Is.EqualTo($"myTestFolder{Path.DirectorySeparatorChar}foo.asset"));
-            Assert.That(cache.Resources.First().ResourcesPath,
+            Assert.That(foo.ResourcesPath,
                 Is.EqualTo($"myTestFolder{Path.DirectorySeparatorChar}foo"));
-            Assert.That(cache.Resources.First().Name, Is.EqualTo("foo"));
-            Assert.That(cache.Resources.ElementAt(1).FullPath,
+            Assert.That(bar.FullPath,
                 Is.EqualTo($"myTestFolder{Path.DirectorySeparatorChar}nested{Path.DirectorySeparatorChar}bar.asset"));
-            Assert.That(cache.Resources.ElementAt(1).ResourcesPath,
+            Assert.That(bar.ResourcesPath,
                 Is.EqualTo($"myTestFolder{Path.DirectorySeparatorChar}nested{Path.DirectorySeparatorChar}bar"));
-            Assert.That(cache.Resources.ElementAt(1).Name, Is.EqualTo("bar"));
         }
 
         [Test]
