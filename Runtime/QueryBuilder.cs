@@ -14,42 +14,42 @@ namespace HamerSoft.BetterResources
     public class QueryBuilder : IDisposable
     {
         private ResourceManifest _manifest;
-        private List<Func<ResourceInfo, bool>> _queryPredicate;
-        private Func<ResourceInfo, bool> _namePredicate;
-        private Func<ResourceInfo, bool> _pathPredicate;
-        private Func<ResourceInfo, bool> _packagePredicate;
-        private Func<ResourceInfo, bool> _typePredicate;
-        private Func<ResourceInfo, bool> _inPackagePredicate;
-        private Func<ResourceInfo, bool> _withComponentsPredicate;
-        private Func<ResourceInfo, bool> _withoutComponentsPredicate;
-        private Func<ResourceInfo, bool> _guidPredicate;
-        private IEnumerable<ResourceInfo> _results;
+        private List<Func<ResourceAsset, bool>> _queryPredicate;
+        private Func<ResourceAsset, bool> _namePredicate;
+        private Func<ResourceAsset, bool> _pathPredicate;
+        private Func<ResourceAsset, bool> _packagePredicate;
+        private Func<ResourceAsset, bool> _typePredicate;
+        private Func<ResourceAsset, bool> _inPackagePredicate;
+        private Func<ResourceAsset, bool> _withComponentsPredicate;
+        private Func<ResourceAsset, bool> _withoutComponentsPredicate;
+        private Func<ResourceAsset, bool> _guidPredicate;
+        private IEnumerable<ResourceAsset> _results;
         private bool _isDisposed;
 
         internal QueryBuilder(ResourceManifest manifest)
         {
             _manifest = manifest;
-            _queryPredicate = new List<Func<ResourceInfo, bool>>(5);
+            _queryPredicate = new List<Func<ResourceAsset, bool>>(5);
         }
 
         /// <summary>
-        /// Get a single <see cref="ResourceInfo"/> result that has a component that matches type T or is derived from T and match the other filters
+        /// Get a single <see cref="ResourceAsset"/> result that has a component that matches type T or is derived from T and match the other filters
         /// </summary>
         /// <typeparam name="T">Generic type filter</typeparam>
         /// <remarks> You can no longer change a query after you call <see cref="GetResult"/> | <see cref="GetResult{T}"/> | <see cref="GetResults"/> | <see cref="GetResults{T}"/>.</remarks>
-        /// <returns>A <see cref="ResourceInfo"/> that matches all filter and type filter T</returns>
-        public ResourceInfo GetResult<T>() where T : UnityEngine.Object
+        /// <returns>A <see cref="ResourceAsset"/> that matches all filter and type filter T</returns>
+        public ResourceAsset GetResult<T>() where T : UnityEngine.Object
         {
             return GetResults<T>()?.FirstOrDefault();
         }
         
         /// <summary>
-        /// Get <see cref="ResourceInfo"/> results that have a component that matches type T or is derived from T and match the other filters
+        /// Get <see cref="ResourceAsset"/> results that have a component that matches type T or is derived from T and match the other filters
         /// </summary>
         /// <typeparam name="T">Generic type filter</typeparam>
         /// <remarks> You can no longer change a query after you call <see cref="GetResult"/> | <see cref="GetResult{T}"/> | <see cref="GetResults"/> | <see cref="GetResults{T}"/>.</remarks>
-        /// <returns>A collection of <see cref="ResourceInfo"/> that match all filter and type filter T</returns>
-        public IEnumerable<ResourceInfo> GetResults<T>() where T : UnityEngine.Object
+        /// <returns>A collection of <see cref="ResourceAsset"/> that match all filter and type filter T</returns>
+        public IEnumerable<ResourceAsset> GetResults<T>() where T : UnityEngine.Object
         {
             if (_isDisposed)
                 return null;
@@ -63,26 +63,26 @@ namespace HamerSoft.BetterResources
                 _queryPredicate.Add(_typePredicate);
             }
 
-            Func<ResourceInfo, bool> predicate = _guidPredicate ?? ((resource) =>
+            Func<ResourceAsset, bool> predicate = _guidPredicate ?? ((resource) =>
             {
                 return _queryPredicate.All(pred => pred.Invoke(resource));
             });
 
             _results = _manifest?.Resources.Where(resource => predicate.Invoke(resource)) ??
-                       Array.Empty<ResourceInfo>();
+                       Array.Empty<ResourceAsset>();
             return _results;
         }
         
         /// <summary>
-        /// Get a single <see cref="ResourceInfo"/> result that match the filters
+        /// Get a single <see cref="ResourceAsset"/> result that match the filters
         /// </summary>
         /// <remarks> You can no longer change a query after you call <see cref="GetResult"/> | <see cref="GetResult{T}"/> | <see cref="GetResults"/> | <see cref="GetResults{T}"/>.</remarks>
-        /// <returns>A <see cref="ResourceInfo"/> that matches all filters</returns>
-        public ResourceInfo GetResult()
+        /// <returns>A <see cref="ResourceAsset"/> that matches all filters</returns>
+        public ResourceAsset GetResult()
         {
             if (_queryPredicate?.All(p => p == null) == true)
             {
-                _results = Array.Empty<ResourceInfo>();
+                _results = Array.Empty<ResourceAsset>();
                 return null;
             }
 
@@ -90,11 +90,11 @@ namespace HamerSoft.BetterResources
         }
 
         /// <summary>
-        /// Get <see cref="ResourceInfo"/> results that match the filters
+        /// Get <see cref="ResourceAsset"/> results that match the filters
         /// </summary>
         /// <remarks> You can no longer change a query after you call <see cref="GetResult"/> | <see cref="GetResult{T}"/> | <see cref="GetResults"/> | <see cref="GetResults{T}"/>.</remarks>
-        /// <returns>A collection of <see cref="ResourceInfo"/> that match all filters</returns>
-        public IEnumerable<ResourceInfo> GetResults()
+        /// <returns>A collection of <see cref="ResourceAsset"/> that match all filters</returns>
+        public IEnumerable<ResourceAsset> GetResults()
         {
             return GetResults<UnityEngine.Object>();
         }
@@ -329,8 +329,8 @@ namespace HamerSoft.BetterResources
             return this;
         }
 
-        private void SetPredicate(string filter, ref Func<ResourceInfo, bool> reference,
-            Func<ResourceInfo, bool> predicate, bool ignoreNull = false)
+        private void SetPredicate(string filter, ref Func<ResourceAsset, bool> reference,
+            Func<ResourceAsset, bool> predicate, bool ignoreNull = false)
         {
             if (string.IsNullOrWhiteSpace(filter) && !ignoreNull)
             {
@@ -347,7 +347,7 @@ namespace HamerSoft.BetterResources
             }
         }
 
-        private void RemovePredicate(ref Func<ResourceInfo, bool> predicate)
+        private void RemovePredicate(ref Func<ResourceAsset, bool> predicate)
         {
             if (predicate != null)
                 _queryPredicate.Remove(predicate);

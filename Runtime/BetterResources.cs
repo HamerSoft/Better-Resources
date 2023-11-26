@@ -162,15 +162,15 @@ namespace HamerSoft.BetterResources
         /// <summary>
         /// Loads the asset of the requested type stored at path in a Resources folder using a parameter type filter of type.
         /// </summary>
-        /// <param name="resourceInfo">ResourceInfo, found through <see cref="Query"/></param>
+        /// <param name="resourceAsset">ResourceAsset, found through <see cref="Query"/></param>
         /// <param name="type">Optional type filter</param>
-        /// <remarks>Type can be of any in the <see cref="ResourceInfo"/>.Components</remarks>
-        /// <returns>An object at the path of the resourceInfo, by any type filter that matches</returns>
-        public static Object Load(ResourceInfo resourceInfo, Type type = null)
+        /// <remarks>Type can be of any in the <see cref="ResourceAsset"/>.Components</remarks>
+        /// <returns>An object at the path of the ResourceAsset, by any type filter that matches</returns>
+        public static Object Load(ResourceAsset resourceAsset, Type type = null)
         {
             return type == null
-                ? Resources.Load(resourceInfo.ResourcesPath)
-                : Resources.Load(resourceInfo.ResourcesPath, type);
+                ? Resources.Load(resourceAsset.ResourcesPath)
+                : Resources.Load(resourceAsset.ResourcesPath, type);
         }
 
         /// <summary>
@@ -187,12 +187,12 @@ namespace HamerSoft.BetterResources
         /// <summary>
         ///  Loads the asset of the requested type stored at path in a Resources folder using a generic parameter type filter of type T.
         /// </summary>
-        /// <param name="resourceInfo">ResourceInfo, found through <see cref="Query"/></param>
+        /// <param name="resourceAsset">ResourceAsset, found through <see cref="Query"/></param>
         /// <typeparam name="T">Generic Type filter</typeparam>
         /// <returns>An object of the requested generic parameter type</returns>
-        public static T Load<T>(ResourceInfo resourceInfo) where T : Object
+        public static T Load<T>(ResourceAsset resourceAsset) where T : Object
         {
-            return Resources.Load<T>(resourceInfo.ResourcesPath);
+            return Resources.Load<T>(resourceAsset.ResourcesPath);
         }
 
         /// <summary>
@@ -210,13 +210,13 @@ namespace HamerSoft.BetterResources
         /// <summary>
         /// Asynchronously loads an asset stored at path in a Resources folder.
         /// </summary>
-        /// <param name="resourceInfo">ResourceInfo, found through <see cref="Query"/></param>
+        /// <param name="resourceAsset">ResourceAsset, found through <see cref="Query"/></param>
         /// <typeparam name="T">Generic Type Filter</typeparam>
-        /// <remarks>Type filter T can be of any Type in <see cref="ResourceInfo"/>.Components</remarks>
+        /// <remarks>Type filter T can be of any Type in <see cref="ResourceAsset"/>.Components</remarks>
         /// <returns>An object of the requested generic parameter type</returns>
-        public static async Task<T> LoadAsync<T>(ResourceInfo resourceInfo) where T : Object
+        public static async Task<T> LoadAsync<T>(ResourceAsset resourceAsset) where T : Object
         {
-            return await Resources.LoadAsync<T>(resourceInfo.ResourcesPath) as T;
+            return await Resources.LoadAsync<T>(resourceAsset.ResourcesPath) as T;
         }
 
         /// <summary>
@@ -236,16 +236,16 @@ namespace HamerSoft.BetterResources
         /// <summary>
         /// Asynchronously loads an asset stored at path in a Resources folder.
         /// </summary>
-        /// <param name="resourceInfo">ResourceInfo, found through <see cref="Query"/></param>
+        /// <param name="resourceAsset">ResourceAsset, found through <see cref="Query"/></param>
         /// <remarks>When using the empty string (i.e., ""), the function will load the entire contents of the Resources folder.</remarks>
         /// <param name="type">Type Filter</param>
         /// <returns>An object of the requested type parameter type</returns>
         /// <returns></returns>
-        public static async Task<Object> LoadAsync(ResourceInfo resourceInfo, Type type = null)
+        public static async Task<Object> LoadAsync(ResourceAsset resourceAsset, Type type = null)
         {
             return type == null
-                ? await Resources.LoadAsync(resourceInfo.ResourcesPath)
-                : await Resources.LoadAsync(resourceInfo.ResourcesPath, type);
+                ? await Resources.LoadAsync(resourceAsset.ResourcesPath)
+                : await Resources.LoadAsync(resourceAsset.ResourcesPath, type);
         }
 
         /// <summary>

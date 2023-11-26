@@ -248,7 +248,7 @@ namespace HamerSoft.BetterResources.Tests
         }
 
         [Test]
-        public void ResourceInfo_Found_By_Query_Returns_UnityResource_When_Loaded()
+        public void ResourceAsset_Found_By_Query_Returns_UnityResource_When_Loaded()
         {
             var queryResult = new QueryBuilder(_manifest).InPackage(true).GetResult<TextAsset>();
             var resource = BetterResources.Load(queryResult);

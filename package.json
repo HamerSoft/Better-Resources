@@ -5,13 +5,15 @@
   "description": "A better API to interact with Unity3D resources.",
   "unity": "2021.3",
   "documentationUrl": "https://example.com/",
-  "changelogUrl": "https://example.com/changelog.html",
+  "changelogUrl": "https://github.com/HamerSoft/better-resources/releases",
   "licensesUrl": "License.md",
   "keywords": [
     "Unity3D",
     "Resources",
     "Filesystem",
-    "HamerSoft"
+    "HamerSoft",
+    "BetterResources",
+    "Query"
   ],
   "author": {
     "name": "HamerSoft",
@@ -20,6 +22,6 @@
   },
   "type": "library",
   "dependencies": {
-    "com.unity.nuget.newtonsoft-json": ""
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
   }
 }

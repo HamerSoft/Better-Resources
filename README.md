@@ -4,6 +4,8 @@ Better Resources is a library that offers a better API to interact with Unity3D 
 Most notably, it extends the existing [Resources](https://docs.unity3d.com/ScriptReference/Resources.html) with the
 capability to query all resource paths in your project and imported packages, both at **design-and-run-time**!
 
+![WorkflowBadge](https://github.com/HamerSoft/better-resources/.github/workflows/main/badge.svg)
+
 ## Getting Started
 
 Better Resources exposes the complete UnityEngine [Resources](https://docs.unity3d.com/ScriptReference/Resources.html)
@@ -12,7 +14,7 @@ However, in order to query all resources in a project (including packages) a Res
 
 A ResourcesCache can be generated through the different overloads
 of [BetterResourcesEditor](Editor/BetterResourcesEditor.cs).
-This file can to be generated **in the Unity3D editor** from the `HamerSoft/BetterResources/Generate Cache` menu in
+This file can be generated **in the Unity3D editor** from the `HamerSoft/BetterResources/Generate Cache` menu in
 the toolbar or through the available API.
 BetterResources also comes with a pre-made pre-build hook to generate a ResourcesCache before a build is compiled.
 See [enabling the built-in pre-build hook](#Enabling-the-built-in-pre-build-hook) for more information.

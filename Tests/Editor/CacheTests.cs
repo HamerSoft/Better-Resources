@@ -151,7 +151,7 @@ namespace HamerSoft.BetterResources.Tests
         }
 
         [Test]
-        public async Task Components_On_RootAsset_Are_Added_To_ResourceInfo()
+        public async Task Components_On_RootAsset_Are_Added_To_ResourceAsset()
         {
             await AwaitCreateMaterial(RESOURCES, "FooTestBarMat.mat");
             var cache = await GenerateCache(new[] { Path.Combine(ASSETS, RESOURCES, "FooTestBarMat.mat") },
@@ -163,7 +163,7 @@ namespace HamerSoft.BetterResources.Tests
         }
 
         [Test]
-        public async Task All_Components_On_Prefab_Are_Added_To_ResourceInfo()
+        public async Task All_Components_On_Prefab_Are_Added_To_ResourceAsset()
         {
             await AwaitCreatePrefab(RESOURCES, "SomeFinePrefab.prefab", typeof(Camera), typeof(AudioSource),
                 typeof(Light));
@@ -252,7 +252,7 @@ namespace HamerSoft.BetterResources.Tests
         {
             var directory = Path.Combine(RESOURCES, "test-cache");
             BetterResourcesEditor.SaveCache(
-                new ResourceCache(new List<ResourceInfo>(), DateTime.UtcNow, Path.DirectorySeparatorChar), directory);
+                new ResourceCache(new List<ResourceAsset>(), DateTime.UtcNow, Path.DirectorySeparatorChar), directory);
             Assert.That(BetterResources.Load<TextAsset>(Path.Combine("test-cache", "ResourcesCache")), Is.Not.Null);
             AssetDatabase.DeleteAsset(Path.Combine(ASSETS, directory));
         }
@@ -260,7 +260,7 @@ namespace HamerSoft.BetterResources.Tests
         [Test]
         public async Task When_Cache_Is_Deserialized_And_DirectorySeparators_Dont_Match_They_Are_Replaced()
         {
-            var cache = new ResourceCache(new List<ResourceInfo>()
+            var cache = new ResourceCache(new List<ResourceAsset>()
             {
                 new(Guid.NewGuid().ToString(), "foo|bar.asset", null, new[] { typeof(TextAsset) })
             }, DateTime.UtcNow, '|');

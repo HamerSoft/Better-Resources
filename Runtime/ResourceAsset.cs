@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace HamerSoft.BetterResources
 {
-    public class ResourceInfo
+    public class ResourceAsset
     {
         public string Guid { get; internal set; }
         public string Name { get; internal set; }
@@ -17,7 +17,7 @@ namespace HamerSoft.BetterResources
         public bool IsInPackage => !string.IsNullOrWhiteSpace(Package);
         public HashSet<Type> Components { get; }
 
-        internal ResourceInfo(string guid, string path, string packageName,
+        internal ResourceAsset(string guid, string path, string packageName,
             IEnumerable<Type> components)
         {
             Guid = guid;

@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,7 +28,7 @@ namespace HamerSoft.BetterResources
 
         internal async Task<ResourceCache> GenerateAsync(CancellationToken token = default)
         {
-            var resources = new List<ResourceInfo>();
+            var resources = new List<ResourceAsset>();
             foreach (var path in _assetPaths.AsParallel().Where(p =>
                          p.Contains(
                              $"{BetterResources.DirectorySeparator}{BetterResources.RESOURCES}{BetterResources.DirectorySeparator}")))
@@ -49,7 +48,7 @@ namespace HamerSoft.BetterResources
 
                 for (int i = 0; i < resourceDirs.Count; i++)
                 {
-                    resources.Add(new ResourceInfo(guid, resourceDirs[i], packageName, components));
+                    resources.Add(new ResourceAsset(guid, resourceDirs[i], packageName, components));
                 }
             }
 
@@ -62,7 +61,7 @@ namespace HamerSoft.BetterResources
 
         internal ResourceCache Generate()
         {
-            var resources = new List<ResourceInfo>();
+            var resources = new List<ResourceAsset>();
             foreach (var path in _assetPaths.AsParallel().Where(p =>
                          p.Contains(
                              $"{BetterResources.DirectorySeparator}{BetterResources.RESOURCES}{BetterResources.DirectorySeparator}")))
@@ -79,7 +78,7 @@ namespace HamerSoft.BetterResources
 
                 for (int i = 0; i < resourceDirs.Count; i++)
                 {
-                    resources.Add(new ResourceInfo(guid, resourceDirs[i], packageName, components));
+                    resources.Add(new ResourceAsset(guid, resourceDirs[i], packageName, components));
                 }
             }
 
@@ -135,4 +134,3 @@ namespace HamerSoft.BetterResources
         }
     }
 }
-#endif

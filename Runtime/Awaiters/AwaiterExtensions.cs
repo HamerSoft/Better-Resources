@@ -1,6 +1,3 @@
-#if UNITY_EDITOR
-using UnityEditor.PackageManager.Requests;
-#endif
 using UnityEngine;
 
 namespace HamerSoft.BetterResources.Awaiters
@@ -20,17 +17,5 @@ namespace HamerSoft.BetterResources.Awaiters
             return new ResourceRequestAwaiter(asyncOp);
         }
 
-#if UNITY_EDITOR
-        /// <summary>
-        /// Get an awaiter for a ListRequest from the <see cref="UnityEditor.PackageManager"/>
-        /// </summary>
-        /// <param name="asyncOp">The ListRequest</param>
-        /// <returns>Awaitable object</returns>
-        /// <remarks>Sometimes it takes a very long time for this to return!</remarks>
-        public static ListRequestAwaiter GetAwaiter(this ListRequest asyncOp)
-        {
-            return new ListRequestAwaiter(asyncOp);
-        }
-#endif
     }
 }

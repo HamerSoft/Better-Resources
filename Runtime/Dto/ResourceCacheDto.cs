@@ -9,7 +9,7 @@ namespace HamerSoft.BetterResources.Dto
     internal class ResourceCacheDto
     {
         [Serializable]
-        internal class ResourceInfoDto
+        internal class ResourceAssetDto
         {
             [JsonProperty] internal string Guid { get; set; }
             [JsonProperty] internal string FullPath { get; set; }
@@ -17,11 +17,11 @@ namespace HamerSoft.BetterResources.Dto
             [JsonProperty] internal HashSet<string> Components { get; set; }
 
             [JsonConstructor]
-            internal ResourceInfoDto()
+            internal ResourceAssetDto()
             {
             }
 
-            internal ResourceInfoDto(string guid, string path, string packageName,
+            internal ResourceAssetDto(string guid, string path, string packageName,
                 HashSet<Type> components)
             {
                 Guid = guid;
@@ -32,7 +32,7 @@ namespace HamerSoft.BetterResources.Dto
         }
 
         [JsonProperty] internal string CreatedAt;
-        [JsonProperty] internal List<ResourceInfoDto> Resources;
+        [JsonProperty] internal List<ResourceAssetDto> Resources;
         [JsonProperty] internal char DirectorySeparator;
 
         [JsonConstructor]
@@ -40,14 +40,14 @@ namespace HamerSoft.BetterResources.Dto
         {
         }
 
-        internal ResourceCacheDto(string createdAt, List<ResourceInfo> resources, char directorySeparator)
+        internal ResourceCacheDto(string createdAt, List<ResourceAsset> resources, char directorySeparator)
         {
             CreatedAt = createdAt;
             DirectorySeparator = directorySeparator;
-            Resources = new List<ResourceInfoDto>();
+            Resources = new List<ResourceAssetDto>();
             foreach (var resource in resources)
             {
-                Resources.Add(new ResourceInfoDto(resource.Guid, resource.FullPath, resource.Package,
+                Resources.Add(new ResourceAssetDto(resource.Guid, resource.FullPath, resource.Package,
                     resource.Components));
             }
         }

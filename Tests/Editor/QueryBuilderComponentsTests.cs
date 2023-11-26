@@ -97,7 +97,7 @@ namespace HamerSoft.BetterResources.Tests
         }
 
         [Test]
-        public async Task ResourceInfo_Found_By_QueryBuilder_Load_Async()
+        public async Task ResourceAsset_Found_By_QueryBuilder_Load_Async()
         {
             var queryResult = new QueryBuilder(_manifest).ByName("CameraAudioLight").GetResult<Camera>();
             var resource = await BetterResources.LoadAsync(queryResult);
@@ -109,7 +109,7 @@ namespace HamerSoft.BetterResources.Tests
         }
 
         [Test]
-        public async Task ResourceInfo_Found_By_QueryBuilder_Can_Be_Loaded_Through_All_ComponentTypes()
+        public async Task ResourceAsset_Found_By_QueryBuilder_Can_Be_Loaded_Through_All_ComponentTypes()
         {
             var queryResult = new QueryBuilder(_manifest).ByName("CameraAudioLight").GetResult<Camera>();
             var resource = await BetterResources.LoadAsync(queryResult);

@@ -1,5 +1,3 @@
-#if UNITY_EDITOR
-
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -68,4 +66,3 @@ namespace HamerSoft.BetterResources.Awaiters
         public PackageCollection GetResult() => _asyncOperation.Result;
     }
 }
-#endif

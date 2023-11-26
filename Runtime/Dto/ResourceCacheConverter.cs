@@ -30,7 +30,7 @@ namespace HamerSoft.BetterResources.Dto
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
                 assemblies.TryAdd(assembly.FullName, assembly);
 
-            var resources = dto.Resources.AsParallel().Select(resource => new ResourceInfo(resource.Guid,
+            var resources = dto.Resources.AsParallel().Select(resource => new ResourceAsset(resource.Guid,
                 isDirectorySeparatorEqual
                     ? resource.FullPath
                     : resource.FullPath.Replace(dto.DirectorySeparator, Path.DirectorySeparatorChar), resource.Package,

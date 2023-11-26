@@ -6,11 +6,11 @@ namespace HamerSoft.BetterResources
     internal class ResourceManifest
     {
         internal readonly DateTime CreatedAt;
-        internal readonly IReadOnlyList<ResourceInfo> Resources;
+        internal readonly IReadOnlyList<ResourceAsset> Resources;
 
-        internal ResourceManifest(IEnumerable<ResourceInfo> resources, DateTime createdAt)
+        internal ResourceManifest(IEnumerable<ResourceAsset> resources, DateTime createdAt)
         {
-            Resources = new List<ResourceInfo>(resources);
+            Resources = new List<ResourceAsset>(resources);
             CreatedAt = createdAt;
         }
     }

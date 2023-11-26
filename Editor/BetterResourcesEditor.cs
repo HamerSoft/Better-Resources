@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using HamerSoft.BetterResources.Awaiters;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
