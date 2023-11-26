@@ -68,11 +68,11 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a> Better Resources is a library that offers a better API to interact with Unity3D resources. Most notably, it extends the existing <a href="https://docs.unity3d.com/ScriptReference/Resources.html">Resources</a> with the capability to query all resource paths in your project and imported packages, both at <b>design-and-run-time</b>!</p>
-<p><img src="https://github.com/HamerSoft/better-resources/actions/workflows/main/badge.svg" alt="WorkflowBadge" style="pointer-events: none;" class="inline"/></p>
+<p><img src="https://github.com/HamerSoft/better-resources/.github/workflows/main/badge.svg" alt="WorkflowBadge" style="pointer-events: none;" class="inline"/></p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Getting Started</h1>
 <p>Better Resources exposes the complete UnityEngine <a href="https://docs.unity3d.com/ScriptReference/Resources.html">Resources</a> API, which can be used straight out of the box. However, in order to query all resources in a project (including packages) a ResourcesCache is needed.</p>
-<p>A ResourcesCache can be generated through the different overloads of <a href="Editor/BetterResourcesEditor.cs">BetterResourcesEditor</a>. This file can to be generated <b>in the Unity3D editor</b> from the <code>HamerSoft/BetterResources/Generate Cache</code> menu in the toolbar or through the available API. BetterResources also comes with a pre-made pre-build hook to generate a ResourcesCache before a build is compiled. See <a href="#Enabling-the-built-in-pre-build-hook">enabling the built-in pre-build hook</a> for more information.</p>
+<p>A ResourcesCache can be generated through the different overloads of <a href="Editor/BetterResourcesEditor.cs">BetterResourcesEditor</a>. This file can be generated <b>in the Unity3D editor</b> from the <code>HamerSoft/BetterResources/Generate Cache</code> menu in the toolbar or through the available API. BetterResources also comes with a pre-made pre-build hook to generate a ResourcesCache before a build is compiled. See <a href="#Enabling-the-built-in-pre-build-hook">enabling the built-in pre-build hook</a> for more information.</p>
 <p>Once a cache is generated and saved in a Resources root folder like: <code>&lt;Project&gt;/Assets/Resources/ResourcesCache</code> it can be used in a build to initialize BetterResources to enable queries.</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Initialization</h1>
