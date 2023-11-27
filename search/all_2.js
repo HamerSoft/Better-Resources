@@ -1,5 +1,13 @@
 var searchData=
 [
-  ['findobjectsoftypeall_13',['FindObjectsOfTypeAll',['../classHamerSoft_1_1BetterResources_1_1BetterResources.html#a45a0921205d5a64bc1344008ee977dd2',1,'HamerSoft::BetterResources::BetterResources']]],
-  ['findobjectsoftypeall_3c_20t_20_3e_14',['FindObjectsOfTypeAll&lt; T &gt;',['../classHamerSoft_1_1BetterResources_1_1BetterResources.html#a22fce48e051866e2be8f445abc27d31a',1,'HamerSoft::BetterResources::BetterResources']]]
+  ['better_20resources_4',['Better Resources',['../index.html',1,'']]],
+  ['betterresources_5',['BetterResources',['../classHamerSoft_1_1BetterResources_1_1BetterResources.html',1,'HamerSoft::BetterResources']]],
+  ['betterresourceseditor_6',['BetterResourcesEditor',['../classHamerSoft_1_1BetterResources_1_1Editor_1_1BetterResourcesEditor.html',1,'HamerSoft::BetterResources::Editor']]],
+  ['byguid_7',['ByGuid',['../classHamerSoft_1_1BetterResources_1_1QueryBuilder.html#a786e3138edf79ba3886c871d5e733d9e',1,'HamerSoft.BetterResources.QueryBuilder.ByGuid(string guidFilter)'],['../classHamerSoft_1_1BetterResources_1_1QueryBuilder.html#a4204eef018ab5177eb405e31daa231b5',1,'HamerSoft.BetterResources.QueryBuilder.ByGuid(Guid guid)']]],
+  ['byname_8',['ByName',['../classHamerSoft_1_1BetterResources_1_1QueryBuilder.html#adec2b6f7ae12c3710b44eb4495a62fb6',1,'HamerSoft::BetterResources::QueryBuilder']]],
+  ['bynamesubstring_9',['ByNameSubString',['../classHamerSoft_1_1BetterResources_1_1QueryBuilder.html#a7acba5239fca3fddbdbf3007666bdcaa',1,'HamerSoft::BetterResources::QueryBuilder']]],
+  ['bypackage_10',['ByPackage',['../classHamerSoft_1_1BetterResources_1_1QueryBuilder.html#a866d7700c1157f18d2841b1db58021d2',1,'HamerSoft::BetterResources::QueryBuilder']]],
+  ['bypackagesubstring_11',['ByPackageSubString',['../classHamerSoft_1_1BetterResources_1_1QueryBuilder.html#ac6834e4fbe3d7391f10422a7d72579dd',1,'HamerSoft::BetterResources::QueryBuilder']]],
+  ['bypath_12',['ByPath',['../classHamerSoft_1_1BetterResources_1_1QueryBuilder.html#a12927d5634c57d58e339e3f25d0e5404',1,'HamerSoft::BetterResources::QueryBuilder']]],
+  ['bypathsubstring_13',['ByPathSubString',['../classHamerSoft_1_1BetterResources_1_1QueryBuilder.html#a7273e90f875eafcf0f40a0f35bb45735',1,'HamerSoft::BetterResources::QueryBuilder']]]
 ];

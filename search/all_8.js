@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['query_49',['Query',['../classHamerSoft_1_1BetterResources_1_1BetterResources.html#ab17690beea123b3d79e7bacaec78b422',1,'HamerSoft::BetterResources::BetterResources']]],
-  ['querybuilder_50',['QueryBuilder',['../classHamerSoft_1_1BetterResources_1_1QueryBuilder.html',1,'HamerSoft::BetterResources']]]
+  ['oncompleted_49',['OnCompleted',['../structHamerSoft_1_1BetterResources_1_1Awaiters_1_1ListRequestAwaiter.html#a551810faff9146be19c289649b64a854',1,'HamerSoft.BetterResources.Awaiters.ListRequestAwaiter.OnCompleted()'],['../structHamerSoft_1_1BetterResources_1_1Awaiters_1_1ResourceRequestAwaiter.html#a1caa68ca8d108ab948f318020fbb0b60',1,'HamerSoft.BetterResources.Awaiters.ResourceRequestAwaiter.OnCompleted()']]]
 ];

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['unloadasset_55',['UnloadAsset',['../classHamerSoft_1_1BetterResources_1_1BetterResources.html#ab5b96380b29a9c25b31cded60f40750f',1,'HamerSoft::BetterResources::BetterResources']]],
-  ['unloadunusedassets_56',['UnloadUnusedAssets',['../classHamerSoft_1_1BetterResources_1_1BetterResources.html#a5ad14e95ee29659f43158a0da3bf8eca',1,'HamerSoft::BetterResources::BetterResources']]]
+  ['taskextensions_53',['TaskExtensions',['../classHamerSoft_1_1BetterResources_1_1Extensions_1_1TaskExtensions.html',1,'HamerSoft::BetterResources::Extensions']]],
+  ['tocoroutine_54',['ToCoroutine',['../classHamerSoft_1_1BetterResources_1_1Extensions_1_1TaskExtensions.html#ae1127b55b7087cadeaaf89668b68c52b',1,'HamerSoft::BetterResources::Extensions::TaskExtensions']]],
+  ['tocoroutine_3c_20t_20_3e_55',['ToCoroutine&lt; T &gt;',['../classHamerSoft_1_1BetterResources_1_1Extensions_1_1TaskExtensions.html#ade5a0d6cd86c3d3959b9e34d87c9b4b6',1,'HamerSoft::BetterResources::Extensions::TaskExtensions']]]
 ];
