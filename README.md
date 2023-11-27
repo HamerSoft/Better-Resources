@@ -22,6 +22,9 @@ See [enabling the built-in pre-build hook](#Enabling-the-built-in-pre-build-hook
 Once a cache is generated and saved in a Resources root folder like: `<Project>/Assets/Resources/ResourcesCache` it can
 be used in a build to initialize BetterResources to enable queries.
 
+### Documentation
+For more detailed docs please review the [GH-Pages](https://hamersoft.github.io/better-resources/).
+
 ## Initialization
 
 BetterResources requires an initialization step (on the main thread) in order to enable querying the available resources at run-time.
