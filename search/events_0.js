@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initialized_122',['Initialized',['../classHamerSoft_1_1BetterResources_1_1BetterResources.html#ae8bff23b54d4ea824440b94081378367',1,'HamerSoft::BetterResources::BetterResources']]]
+  ['cachegenerated_129',['CacheGenerated',['../classHamerSoft_1_1BetterResources_1_1Editor_1_1BetterResourcesEditor.html#af7d357ef9975e8426993db5cdde138f6',1,'HamerSoft::BetterResources::Editor::BetterResourcesEditor']]]
 ];

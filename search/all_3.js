@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['findobjectsoftypeall_14',['FindObjectsOfTypeAll',['../classHamerSoft_1_1BetterResources_1_1BetterResources.html#a45a0921205d5a64bc1344008ee977dd2',1,'HamerSoft::BetterResources::BetterResources']]],
-  ['findobjectsoftypeall_3c_20t_20_3e_15',['FindObjectsOfTypeAll&lt; T &gt;',['../classHamerSoft_1_1BetterResources_1_1BetterResources.html#a22fce48e051866e2be8f445abc27d31a',1,'HamerSoft::BetterResources::BetterResources']]]
+  ['cachegenerated_14',['CacheGenerated',['../classHamerSoft_1_1BetterResources_1_1Editor_1_1BetterResourcesEditor.html#af7d357ef9975e8426993db5cdde138f6',1,'HamerSoft::BetterResources::Editor::BetterResourcesEditor']]]
 ];
