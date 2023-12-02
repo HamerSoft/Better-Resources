@@ -42,6 +42,7 @@ jobs:
     needs: testRunner
     name: Deploy to Github Pages 🚀
     runs-on: ubuntu-latest
+    contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -51,9 +52,15 @@ jobs:
         
       - name: Generate Docs
         run: bash ${GITHUB_WORKSPACE}/.github/scripts/generate-docs.sh
+
+      - name: Move offline Docs
+        run: bash ${GITHUB_WORKSPACE}/.github/scripts/move-offline-docs.sh
         
-      - name: Add offline Documentation
-        run: bash ${GITHUB_WORKSPACE}/.github/scripts/push-offline-docs.sh
+      - name: Add offline Documentation to Repo
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "ci: update offline docs"
+          file_pattern: '*Docs~/*.pdf'
         
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
