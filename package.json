@@ -1,6 +1,6 @@
 {
   "name": "com.hamersoft.betterresources",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "displayName": "Better Resources",
   "description": "A better API to interact with Unity3D resources.",
   "unity": "2021.3",

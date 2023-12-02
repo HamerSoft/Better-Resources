@@ -1,6 +1,9 @@
-name: Test and Deploy GH-Pages
+name: Test, generate Docs and Deploy Pages
 
-on: push
+on:
+  push:
+    branches:
+      - master
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -42,22 +45,35 @@ jobs:
     needs: testRunner
     name: Deploy to Github Pages 🚀
     runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Install DoxyGen
         run: bash ${GITHUB_WORKSPACE}/.github/scripts/install-doxygen.sh
-        
+
       - name: Generate Docs
         run: bash ${GITHUB_WORKSPACE}/.github/scripts/generate-docs.sh
+
+      - name: Move offline Docs
+        run: bash ${GITHUB_WORKSPACE}/.github/scripts/move-offline-docs.sh
+
+      - name: Add offline Documentation to Repo
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "ci: update offline docs"
+          file_pattern: '*Docs~/*.pdf'
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
           folder: Docs/html
-          
+  
   createRelease:
     needs: deployPages
     name: Create Release
