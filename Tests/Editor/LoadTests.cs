@@ -16,7 +16,6 @@ namespace HamerSoft.BetterResources.Tests
 {
     public class LoadTests : ResourceTests
     {
-
         [UnityTest]
         public IEnumerator Load_OfTypeT_Returns_Object_If_Found()
         {
@@ -153,7 +152,8 @@ namespace HamerSoft.BetterResources.Tests
             string rootedPath = GetRootedPath(path);
             await WaitUntil(() => File.Exists(rootedPath));
 
-            var result = await BetterResources.LoadAsync<Material>($"FaultyPath{Path.DirectorySeparatorChar}myTextAsset");
+            var result =
+                await BetterResources.LoadAsync<Material>($"FaultyPath{Path.DirectorySeparatorChar}myTextAsset");
             Assert.That(result, Is.Null);
         }
 
@@ -269,6 +269,65 @@ namespace HamerSoft.BetterResources.Tests
                 Is.TypeOf<TextAsset>());
             Assert.That(BetterResources.Load<Material>($"myTestFolder{Path.DirectorySeparatorChar}foo"),
                 Is.TypeOf<Material>());
+        }
+
+        [Test]
+        public async Task Load_Finds_All_Assets_Based_On_ResourceAssets()
+        {
+            await AwaitCreateAsset(Path.Combine(RESOURCES, "myTestFolder"), "foo.asset");
+            await AwaitCreateAsset(Path.Combine(RESOURCES, "myTestFolder"), "bar.asset");
+            await AwaitCreateAsset(Path.Combine(RESOURCES, "myTestFolder"), "baz.asset");
+
+            var resource1 = new ResourceAsset("", $"myTestFolder{Path.DirectorySeparatorChar}foo.asset", string.Empty,
+                new[] { typeof(TextAsset) });
+            var resource2 = new ResourceAsset("", $"myTestFolder{Path.DirectorySeparatorChar}bar.asset", string.Empty,
+                new[] { typeof(TextAsset) });
+            var resource3 = new ResourceAsset("", $"myTestFolder{Path.DirectorySeparatorChar}baz.asset", string.Empty,
+                new[] { typeof(TextAsset) });
+            var resources = BetterResources.Load(new[] { resource1, resource2, resource3 });
+            Assert.That(resources.Length, Is.EqualTo(3));
+            Assert.That(resources[0].name, Is.EqualTo("foo"));
+            Assert.That(resources[1].name, Is.EqualTo("bar"));
+            Assert.That(resources[2].name, Is.EqualTo("baz"));
+        }
+        
+        [Test]
+        public async Task LoadAsync_Finds_All_Assets_Based_On_ResourceAssets()
+        {
+            await AwaitCreateAsset(Path.Combine(RESOURCES, "myTestFolder"), "foo.asset");
+            await AwaitCreateAsset(Path.Combine(RESOURCES, "myTestFolder"), "bar.asset");
+            await AwaitCreateAsset(Path.Combine(RESOURCES, "myTestFolder"), "baz.asset");
+
+            var resource1 = new ResourceAsset("", $"myTestFolder{Path.DirectorySeparatorChar}foo.asset", string.Empty,
+                new[] { typeof(TextAsset) });
+            var resource2 = new ResourceAsset("", $"myTestFolder{Path.DirectorySeparatorChar}bar.asset", string.Empty,
+                new[] { typeof(TextAsset) });
+            var resource3 = new ResourceAsset("", $"myTestFolder{Path.DirectorySeparatorChar}baz.asset", string.Empty,
+                new[] { typeof(TextAsset) });
+            var resources = await BetterResources.LoadAsync(new[] { resource1, resource2, resource3 });
+            Assert.That(resources.Length, Is.EqualTo(3));
+            Assert.That(resources[0].name, Is.EqualTo("foo"));
+            Assert.That(resources[1].name, Is.EqualTo("bar"));
+            Assert.That(resources[2].name, Is.EqualTo("baz"));
+        }
+        [Test]
+        public async Task LoadAsync_OfType_Finds_All_Assets_Based_On_ResourceAssets()
+        {
+            await AwaitCreateAsset(Path.Combine(RESOURCES, "myTestFolder"), "foo.asset");
+            await AwaitCreateAsset(Path.Combine(RESOURCES, "myTestFolder"), "bar.asset");
+            await AwaitCreateAsset(Path.Combine(RESOURCES, "myTestFolder"), "baz.asset");
+
+            var resource1 = new ResourceAsset("", $"myTestFolder{Path.DirectorySeparatorChar}foo.asset", string.Empty,
+                new[] { typeof(TextAsset) });
+            var resource2 = new ResourceAsset("", $"myTestFolder{Path.DirectorySeparatorChar}bar.asset", string.Empty,
+                new[] { typeof(TextAsset) });
+            var resource3 = new ResourceAsset("", $"myTestFolder{Path.DirectorySeparatorChar}baz.asset", string.Empty,
+                new[] { typeof(TextAsset) });
+            var resources = await BetterResources.LoadAsync<TextAsset>(new[] { resource1, resource2, resource3 });
+            Assert.That(resources.Length, Is.EqualTo(3));
+            Assert.That(resources[0].name, Is.EqualTo("foo"));
+            Assert.That(resources[1].name, Is.EqualTo("bar"));
+            Assert.That(resources[2].name, Is.EqualTo("baz"));
         }
 
         [UnityTest]

@@ -10,7 +10,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace HamerSoft.BetterResources
+namespace HamerSoft.BetterResources.Editor
 {
     internal class CacheGenerator : IDisposable
     {
@@ -74,6 +74,8 @@ namespace HamerSoft.BetterResources
                 var guid = AssetDatabase.AssetPathToGUID(path);
                 var asset = BetterResources.Load(resourceDirs[0]
                     .Replace(Path.GetExtension(resourceDirs[0]), ""));
+                if (asset == null)
+                    continue;
                 var components = GetComponents(asset);
 
                 for (int i = 0; i < resourceDirs.Count; i++)

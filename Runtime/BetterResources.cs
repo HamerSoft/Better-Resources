@@ -9,6 +9,7 @@ using HamerSoft.BetterResources.Awaiters;
 using HamerSoft.BetterResources.Extensions;
 using System.IO;
 using Unity.Collections;
+using UnityEditor.iOS;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -50,6 +51,33 @@ namespace HamerSoft.BetterResources
             DirectorySeparator = Path.DirectorySeparatorChar;
         }
 
+        internal static void ForceInitialize(TextAsset resourceCacheJson)
+        {
+            InitConstants();
+            IsInitialized = true;
+            if (resourceCacheJson)
+            {
+                try
+                {
+                    _manifest = ManifestGenerator.FromResourceCacheJson(resourceCacheJson.text);
+                    IsValid = true;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"Failed to convert ResourceCache json, to an object! {e} | {e.Message}");
+                    IsValid = false;
+                }
+            }
+            else
+            {
+                Debug.LogError(
+                    $"No Resource cache TextAsset called \"{RESOURCES_CACHE}\" found at Resources root path.");
+                IsValid = false;
+            }
+
+            Initialized?.Invoke(IsValid);
+        }
+        
         /// <summary>
         /// Initialize BetterResources
         /// <seealso cref="InitializeAsync"/>
@@ -174,6 +202,28 @@ namespace HamerSoft.BetterResources
         }
 
         /// <summary>
+        /// Loads the multiple assets of the requested type stored at path in a Resources folder using a parameter type filter of type.
+        /// </summary>
+        /// <param name="resourceAssets">ResourceAssets, found through <see cref="Query"/></param>
+        /// <param name="type">Optional type filter</param>
+        /// <remarks>Type can be of any in the <see cref="ResourceAsset"/>.Components</remarks>
+        /// <returns>A collection of objects at the path of the ResourceAsset, by any type filter that matches</returns>
+        public static Object[] Load(IEnumerable<ResourceAsset> resourceAssets, Type type = null)
+        {
+            var array = resourceAssets as ResourceAsset[] ?? resourceAssets.ToArray();
+            var results = new Object[array.Length];
+            for (var i = 0; i < array.Length; i++)
+            {
+                var asset = array[i];
+                results[i] = type == null
+                    ? Resources.Load(asset.ResourcesPath)
+                    : Resources.Load(asset.ResourcesPath, type);
+            }
+
+            return results;
+        }
+
+        /// <summary>
         /// Loads the asset of the requested type stored at path in a Resources folder using a generic parameter type filter of type T.
         /// </summary>
         /// <param name="path">path local to Resources</param>
@@ -193,6 +243,25 @@ namespace HamerSoft.BetterResources
         public static T Load<T>(ResourceAsset resourceAsset) where T : Object
         {
             return Resources.Load<T>(resourceAsset.ResourcesPath);
+        }
+
+        /// <summary>
+        ///  Loads a collection of assets of the requested type stored at path in a Resources folder using a generic parameter type filter of type T.
+        /// </summary>
+        /// <param name="resourceAssets">ResourceAssets, found through <see cref="Query"/></param>
+        /// <typeparam name="T">Generic Type filter</typeparam>
+        /// <returns>An collection of objects of the requested generic parameter type</returns>
+        public static T[] Load<T>(IEnumerable<ResourceAsset> resourceAssets) where T : Object
+        {
+            var array = resourceAssets as ResourceAsset[] ?? resourceAssets.ToArray();
+            var results = new T[array.Length];
+            for (var i = 0; i < array.Length; i++)
+            {
+                var asset = array[i];
+                results[i] = Resources.Load<T>(asset.ResourcesPath);
+            }
+
+            return results;
         }
 
         /// <summary>
@@ -217,6 +286,26 @@ namespace HamerSoft.BetterResources
         public static async Task<T> LoadAsync<T>(ResourceAsset resourceAsset) where T : Object
         {
             return await Resources.LoadAsync<T>(resourceAsset.ResourcesPath) as T;
+        }
+
+        /// <summary>
+        /// Asynchronously loads a collection of asset stored at path in a Resources folder.
+        /// </summary>
+        /// <param name="resourceAssets">ResourceAssets, found through <see cref="Query"/></param>
+        /// <typeparam name="T">Generic Type Filter</typeparam>
+        /// <remarks>Type filter T can be of any Type in <see cref="ResourceAssets"/>.Components</remarks>
+        /// <returns>A collection of objects of the requested generic parameter type</returns>
+        public static async Task<T[]> LoadAsync<T>(IEnumerable<ResourceAsset> resourceAssets) where T : Object
+        {
+            var array = resourceAssets as ResourceAsset[] ?? resourceAssets.ToArray();
+            var results = new T[array.Length];
+            for (var i = 0; i < array.Length; i++)
+            {
+                var asset = array[i];
+                results[i] = await Resources.LoadAsync<T>(asset.ResourcesPath) as T;
+            }
+
+            return results;
         }
 
         /// <summary>
@@ -246,6 +335,29 @@ namespace HamerSoft.BetterResources
             return type == null
                 ? await Resources.LoadAsync(resourceAsset.ResourcesPath)
                 : await Resources.LoadAsync(resourceAsset.ResourcesPath, type);
+        }
+
+        /// <summary>
+        /// Asynchronously loads a collection of assets stored at path in a Resources folder.
+        /// </summary>
+        /// <param name="resourceAssets">ResourceAssets, found through <see cref="Query"/></param>
+        /// <remarks>When using the empty string (i.e., ""), the function will load the entire contents of the Resources folder.</remarks>
+        /// <param name="type">Type Filter</param>
+        /// <returns>A collection of objects of the requested type parameter type</returns>
+        /// <returns></returns>
+        public static async Task<Object[]> LoadAsync(IEnumerable<ResourceAsset> resourceAssets, Type type = null)
+        {
+            var array = resourceAssets as ResourceAsset[] ?? resourceAssets.ToArray();
+            var results = new Object[array.Length];
+            for (var i = 0; i < array.Length; i++)
+            {
+                var asset = array[i];
+                results[i] = type == null
+                    ? await Resources.LoadAsync(asset.ResourcesPath)
+                    : await Resources.LoadAsync(asset.ResourcesPath, type);
+            }
+
+            return results;
         }
 
         /// <summary>

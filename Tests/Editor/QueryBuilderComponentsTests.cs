@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using HamerSoft.BetterResources.Editor;
 using HamerSoft.BetterResources.Extensions;
 using NUnit.Framework;
 using UnityEngine;

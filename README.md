@@ -4,7 +4,7 @@ Better Resources is a library that offers a better API to interact with Unity3D 
 Most notably, it extends the existing [Resources](https://docs.unity3d.com/ScriptReference/Resources.html) with the
 capability to query all resource paths in your project and imported packages, both at **design-and-run-time**!
 
-![WorkflowBadge](https://github.com/HamerSoft/better-resources/.github/workflows/main/badge.svg)
+![WorkflowBadge](https://github.com/HamerSoft/better-resources/.github/workflows/main.yml/badge.svg)
 
 ## Getting Started
 
@@ -14,7 +14,7 @@ However, in order to query all resources in a project (including packages) a Res
 
 A ResourcesCache can be generated through the different overloads
 of [BetterResourcesEditor](Editor/BetterResourcesEditor.cs).
-This file can be generated **in the Unity3D editor** from the `HamerSoft/BetterResources/Generate Cache` menu in
+This file can be generated **in the Unity3D editor** from the `Tools/HamerSoft/BetterResources/Generate Cache` menu in
 the toolbar or through the available API.
 BetterResources also comes with a pre-made pre-build hook to generate a ResourcesCache before a build is compiled.
 See [enabling the built-in pre-build hook](#Enabling-the-built-in-pre-build-hook) for more information.
@@ -136,8 +136,27 @@ The [BetterResourcesEditor](Editor/BetterResourcesEditor.cs) exposes a number of
 These could be called through a custom pre-build hook, CloudBuild [Pre-Export](https://docs.unity3d.com/2019.4/Documentation/Manual/UnityCloudBuildPreAndPostExportMethods.html) method or a custom CI implementation like GitHub Actions.
 _Just remember that most, if not all, of the pre-and-post build handlers in Unity run <u>synchronously!</u>_
 
+# Editor Integration
+Better Resources also comes with a AssetPostProcessor. This PostProcessor will detect if there's any changes being made to files in `Resources` directories.
+Once a new asset is added, deleted or moved to the `Resources` folder(s) it will kick in and generate a new cache and initialize BetterResources for use.
+It's main use is for better integration with custom Editor plugins that might use BetterResources to find resources. 
+By using the AssetPostProcessor a new cache is generated and initialization is done automatically.
+
+The AssetPostProcessor can be enabled by adding the scripting define: `BETTERRESOURCES_AUTO_GENERATE`. 
+_*The process for adding this custom define is identical to adding it for the pre-build hook._ 
+
+# Custom Define Summary
+A summary of the custom defines for Better Resources is the following:
+
+| Define                        | Description                                                                                                |
+|-------------------------------|------------------------------------------------------------------------------------------------------------|
+| BETTERRESOURCES_PRE_BUILD     | Enables the pre-made pre-build hook to generate the cache once a build is made.                            |
+| BETTERRESOURCES_AUTO_GENERATE | Enables Editor integration, this is useful for writing Editor Plugins that need access to BetterResources. |
+| BETTERRESOURCES_LOG           | Enables logging. (Logging is a bit incomplete)                                                             |
+
 # Acknowledgements
 Better Resources is a tribute to another amazing library
 called [BetterStreamingAssets](https://github.com/gwiazdorrr/BetterStreamingAssets), hence the name :)
 
 `"Better Streaming Assets is a plugin that lets you access Streaming Assets directly in an uniform and thread-safe way, with tiny overhead. Mostly beneficial for Android projects, where the alternatives are to use archaic and hugely inefficient WWW or embed data in Asset Bundles. API is based on Syste.IO.File and System.IO.Directory classes."`
+

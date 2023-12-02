@@ -23,9 +23,13 @@ namespace HamerSoft.BetterResources.Editor
 
         private static void OnClickBuildPlayer(BuildPlayerOptions options)
         {
+#if BETTERRESOURCES_LOG
             Debug.Log("<color=green>Generating BetterResources Cache!</color>");
+#endif
             BetterResourcesEditor.GenerateCache();
+#if BETTERRESOURCES_LOG
             Debug.Log("<color=green>Generated BetterResources Cache Success!</color>");
+#endif
             BuildPlayerWindow.DefaultBuildMethods.BuildPlayer(options);
         }
     }

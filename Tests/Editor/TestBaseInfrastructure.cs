@@ -21,6 +21,9 @@ namespace HamerSoft.BetterResources.Tests
 
         protected IEnumerator DoSetup()
         {
+#if BETTERRESOURCES_AUTO_GENERATE
+            HamerSoft.BetterResources.Editor.AssetPostProcessor.Disable();
+#endif
             BetterResources.InitConstants();
             CreatedFiles = new List<string>();
             DirectoriesToDelete = new List<string>();
@@ -38,6 +41,10 @@ namespace HamerSoft.BetterResources.Tests
             var pathRoots = DirectoriesToDelete;
             AssetDatabase.DeleteAssets(pathRoots.ToArray(), new List<string>());
             AssetDatabase.Refresh();
+
+#if BETTERRESOURCES_AUTO_GENERATE
+            HamerSoft.BetterResources.Editor.AssetPostProcessor.Enable();
+#endif
         }
 
         protected string CreateAsset(string path, string fileName, string assetContent = null)
@@ -101,7 +108,6 @@ namespace HamerSoft.BetterResources.Tests
             var directoryPath = GetRootedPath(path, false);
             if (!Directory.Exists(directoryPath))
             {
-                
                 Directory.CreateDirectory(directoryPath);
             }
 

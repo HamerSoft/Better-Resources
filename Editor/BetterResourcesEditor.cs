@@ -21,11 +21,16 @@ namespace HamerSoft.BetterResources.Editor
     public static class BetterResourcesEditor
     {
         /// <summary>
+        /// Event fired when a new cache has been generated
+        /// </summary>
+        public static event Action CacheGenerated;
+
+        /// <summary>
         /// Generate the Cache in order to <see cref="BetterResources.Query"/>
         /// <remarks> You can use the built-in load functions without cache.</remarks>
         /// <remarks> This function can be triggered through CI and a Menu in the Unity3D editor toolbar at HamerSoft/BetterResources/Generate Cache.</remarks>
         /// </summary>
-        [MenuItem("HamerSoft/BetterResources/Generate Cache")]
+        [MenuItem("Tools/HamerSoft/BetterResources/Generate Cache")]
         public static async void GenerateCacheAsync()
         {
             await GenerateCacheAsync(default);
@@ -42,7 +47,10 @@ namespace HamerSoft.BetterResources.Editor
         {
             var cache = await GenerateCacheInternal(token);
             if (!token.IsCancellationRequested)
+            {
                 SaveCache(cache);
+                CacheGenerated?.Invoke();
+            }
         }
 
         /// <summary>
@@ -54,6 +62,7 @@ namespace HamerSoft.BetterResources.Editor
         {
             AssetDatabase.Refresh();
             GenerateCache(AssetDatabase.GetAllAssetPaths(), GetPackageNames());
+            CacheGenerated?.Invoke();
         }
 
         /// <summary>
