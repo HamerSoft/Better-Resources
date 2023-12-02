@@ -1,3 +1,4 @@
+#if BETTERRESOURCES_AUTO_GENERATE
 using System;
 using System.IO;
 using System.Reflection;
@@ -86,8 +87,8 @@ namespace HamerSoft.BetterResources.Tests
             Assert.That(shouldRefresh, Is.True);
         }
 
-#if BETTERRESOURCES_AUTO_GENERATE
-        [Test(Description = "Ugly integration test using reflection yet this should be able to test the PostProcessor until I find a better way.")]
+        [Test(Description =
+            "Ugly integration test using reflection yet this should be able to test the PostProcessor until I find a better way.")]
         public async Task When_Resources_Are_Detected_A_New_Cache_Is_Generated()
         {
             typeof(BetterResources).GetProperty("IsInitialized", BindingFlags.Static | BindingFlags.Public)
@@ -124,6 +125,6 @@ namespace HamerSoft.BetterResources.Tests
             Assert.That(isInitialized, Is.True);
             Assert.That(isValid, Is.True.Or.False);
         }
-#endif
     }
 }
+#endif
