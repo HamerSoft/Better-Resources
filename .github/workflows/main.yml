@@ -51,7 +51,10 @@ jobs:
         
       - name: Generate Docs
         run: bash ${GITHUB_WORKSPACE}/.github/scripts/generate-docs.sh
-
+        
+      - name: Add offline Documentation
+        run: bash ${GITHUB_WORKSPACE}/.github/scripts/push-offline-docs.sh
+        
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
