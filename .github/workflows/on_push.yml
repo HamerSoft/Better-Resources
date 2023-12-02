@@ -1,0 +1,39 @@
+name: Test Package when Pushed
+
+on: push
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+jobs:
+  testRunner:
+    name: Test in ${{ matrix.testMode }} ✨
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        testMode:
+          - EditMode
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Restructure directory
+        run: bash ${GITHUB_WORKSPACE}/.github/scripts/restructure-dir.sh
+
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v4
+        id: testRunner
+        with:
+          unityVersion: 2021.3.9f1
+          testMode: ${{ matrix.testMode }}
+          checkName: ${{ matrix.testMode }} test results
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Test results (${{ matrix.testMode }})
+          path: ${{ steps.testRunner.outputs.artifactsPath }}
+
+      - name: Revert Directory
+        run: bash ${GITHUB_WORKSPACE}/.github/scripts/revert-dir.sh      

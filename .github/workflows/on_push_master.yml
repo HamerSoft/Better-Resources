@@ -1,6 +1,9 @@
-name: Test and Deploy GH-Pages
+name: Test, generate Docs and Deploy Pages
 
-on: push
+on:
+  push:
+    branches:
+      - master
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
