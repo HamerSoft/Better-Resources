@@ -9,7 +9,6 @@ using HamerSoft.BetterResources.Awaiters;
 using HamerSoft.BetterResources.Extensions;
 using System.IO;
 using Unity.Collections;
-using UnityEditor.iOS;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
