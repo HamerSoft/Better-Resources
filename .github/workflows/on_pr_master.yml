@@ -1,7 +1,9 @@
-name: Test, generate Docs and Deploy Pages
+name: Test, Generate Documentation, Deploy GH-Pages and Make Release
 
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
       - master
 
@@ -11,6 +13,7 @@ env:
 jobs:
   testRunner:
     name: Test in ${{ matrix.testMode }} ✨
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -44,6 +47,7 @@ jobs:
   deployPages:
     needs: testRunner
     name: Deploy to Github Pages 🚀
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       # Give the default GITHUB_TOKEN write permission to commit and push the
@@ -51,8 +55,9 @@ jobs:
       contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-        token: ${{ secrets.PAT }}
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT }}
 
       - name: Install DoxyGen
         run: bash ${GITHUB_WORKSPACE}/.github/scripts/install-doxygen.sh
@@ -78,6 +83,7 @@ jobs:
   createRelease:
     needs: deployPages
     name: Create Release
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: checkout

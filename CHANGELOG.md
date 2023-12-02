@@ -3,7 +3,10 @@
 
 ### Features
 
-* add Load byList and PostProcessor ([32135b2](https://github.com/HamerSoft/better-resources/commit/32135b257ad70244341ce6a08c0ab87662d88f87))
+* add Load byList overloads
+* add AssetPostProcessor for automated generation and initialisation 
+* add samples
+* add Offline Docs
 
 
 
